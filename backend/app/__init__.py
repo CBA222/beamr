@@ -9,13 +9,7 @@ from .helpers import db, login_manager
 def create_app():
     app = Flask(__name__)
 
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI="postgresql://postgres:lego_10010@test-database.ctyo46w3wzci.us-east-2.rds.amazonaws.com:5432/youtube_sql",
-        SQLALCHEMY_TRACK_MODIFICATIONS = False,
-        BUCKET_URL_PREFIX="https://youtube-clone-dev-storage.s3.us-east-2.amazonaws.com",
-        BUCKET_NAME = "youtube-clone-dev-storage"
-    )
+    app.config.from_envvar('BEAMR_SETTINGS')
 
     app.register_blueprint(login.bp)
     app.register_blueprint(videos.bp)
