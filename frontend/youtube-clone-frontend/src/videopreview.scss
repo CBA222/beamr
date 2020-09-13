@@ -1,0 +1,75 @@
+.video-preview {
+    
+    width: 100%;
+    height: 100%;
+
+    .inside {
+
+        box-sizing: border-box;
+        border: 0;
+        height: 0;
+        padding-top: 55.25%;
+        position: relative;
+        
+        .inside-2 {
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            a {
+                width: 100%;
+                height: 100%;
+            }
+
+            a:hover {
+                cursor: pointer;
+            }
+
+            .inside-3 {
+                width: 100%;
+                height: 100%;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    position: relative;
+                }
+        
+                img.animated {
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    visibility: hidden;
+                }
+        
+                img.animated.shown {
+                    visibility: visible;
+                }
+
+                .video-length-container {
+                    background-color: black;
+                    color: white;
+                    font-size: 0.9em;
+                    line-height: 0.8em;
+                    font-weight: bold;
+                    position: absolute;
+                    right: 0.5em;
+                    bottom: 0.5em;
+
+                    padding: 0.4em;
+                }
+            }
+
+        }
+
+        
+
+
+    }
+
+    
+}

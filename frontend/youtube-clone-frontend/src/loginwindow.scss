@@ -1,0 +1,104 @@
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    background-color: white;
+    padding: 1.0em;
+
+    .modal-header {
+        display: flex;
+        flex-direction: row;
+
+        padding-top: 1em;
+        padding-bottom: 1em;
+        justify-content: center;
+
+        img {
+            width: 2.2em;
+
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+        }
+
+        p {
+            font-size: 1.1em;
+            font-weight: 500;
+            vertical-align: middle;
+            line-height: 200%;
+        }
+    }
+
+    .login-field {
+        margin-bottom: 1em;
+        p {
+            margin-bottom: 0.35em;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #525252
+        }
+        input {
+            outline: 0;
+            border: 0;
+            padding: 0.4em;
+            width: 24em;
+            background-color: #f2f2f2;
+            outline: 2px solid #f2f2f2;
+            outline-offset: -2px;
+            transition: 0.25s;
+        }
+
+        input:focus {
+            outline: 2px solid var(--theme-color);
+            outline-offset: -2px;
+            background-color: white;
+        }
+
+        
+    }
+
+    button.login-button {
+        border: 0;
+        outline: 0;
+        width: 100%;
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
+        font-weight: 500;
+
+        &:hover {
+            background-color: var(--theme-color);
+            cursor: pointer;
+        }
+    }
+
+    
+}
+
+.react-tabs {
+    .react-tabs__tab-list {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid gainsboro;
+        margin-bottom: 1.0em;
+        
+
+        .react-tabs__tab {
+            margin-right: 0.8em;
+            font-size: 0.9em;
+            font-weight: 500;
+            padding-bottom: 0.2em;
+        }
+
+        .react-tabs__tab:hover {
+            cursor: pointer;
+        }
+
+        .react-tabs__tab--selected {
+            color: var(--theme-color);
+            box-sizing: border-box;
+            border-bottom: 2px solid var(--theme-color);
+            margin-bottom: -1px;
+        }
+    }
+}
+
+  
