@@ -9,6 +9,8 @@ class Watch extends Component {
     constructor(props) {
         super(props);
 
+        const urlParams = new URLSearchParams(props.location.search);
+
         this.state = {
             'manifest_url': "",
             'title': "",
@@ -20,10 +22,16 @@ class Watch extends Component {
             "subscriber_count": "",
             "description": "",
             items: [],
-            hasMore: false
+            comments: [],
+            hasMore: false,
+            commentValue: "",
+            video_id: urlParams.get('id')
         }
 
         this.new_page(props);
+
+        this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+        this.handleCommentChange = this.handleCommentChange.bind(this);
         
     }
 
@@ -50,7 +58,9 @@ class Watch extends Component {
         const id = urlParams.get('id');
 
         this.setState({
-            items: []
+            items: [],
+            comments: [],
+            video_id: id
         })
 
         fetch("/video?id="+id, {
@@ -71,7 +81,9 @@ class Watch extends Component {
                 "description": data["description"]
             })
 
-            var video = document.getElementById("videoPlayer")
+            document.title = data["title"];
+
+            var video = document.getElementById("videoPlayer");
 
             try {
                 this.state.player.reset();
@@ -90,6 +102,14 @@ class Watch extends Component {
                 items: this.state.items.concat(data["videos"])
             })
         })
+
+        fetch("/get_comments?start=0&num=10&video_id=" + id, {})
+        .then(response => response.json())
+        .then(data => {
+            this.setState({
+                comments: this.state.comments.concat(data["data"])
+            })
+        })
     }
 
 
@@ -105,6 +125,22 @@ class Watch extends Component {
       };
 
     handleSubscribe() {
+    }
+
+    handleCommentSubmit(event) {
+        event.preventDefault();
+        console.log("COMMENT SUBMIT")
+        fetch("/submit_comment?video_id=" + this.state.video_id + "&content=" + this.state.commentValue, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
+
+    handleCommentChange(event) {
+        this.setState({commentValue: event.target.value});
     }
 
     render() {
@@ -139,7 +175,9 @@ class Watch extends Component {
                 </div>
                 <div class="comments-container">
                     <div class="comment-options">
-                        <div class="comment-count">No Comments</div>
+                        <div class="comment-count">
+                            {this.state.comments.length} {this.state.comments.length == 1 ? 'Comment' : 'Comments'}
+                        </div>
                         <div>
                             Sort by:
                         </div>
@@ -151,11 +189,19 @@ class Watch extends Component {
                         </div>
                     </div>
                     <div class="comment-input-container">
-                        <input type="text" id="comment-box" name="comment" placeholder="Write a comment" required/>
-                        <button id="submit-comment" disabled>COMMENT</button>
+                        <form onSubmit={this.handleCommentSubmit}>
+                            <input type="text" id="comment-box" name="comment" placeholder="Write a comment" onChange={this.handleCommentChange} value={this.state.commentValue} required/>
+                            <button id="submit-comment" type="submit" value="Submit" disabled>COMMENT</button>
+                        </form>
                     </div>
                     <div class="comments-list">
-        
+                        {this.state.comments.map((val) => (
+                            <VideoComment 
+                                username={val.username}
+                                content={val.content}
+                                post_time={val.post_time}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -206,6 +252,23 @@ function RecommendedvideoPreview(props) {
                     <div class="views_date">{props.view_count} views • {props.upload_date}</div>
                 </div>
             </div>;
+}
+
+function VideoComment(props) {
+    return <div class="video-comment">
+        <div class="comment-left">
+            <img></img>
+        </div>
+        <div class="comment-right">
+            <div class="comment-username">
+                {props.username}
+                {props.post_time}
+            </div>
+            <div class="comment-content">
+                {props.content}
+            </div>
+        </div>
+    </div>
 }
 
 export default Watch;

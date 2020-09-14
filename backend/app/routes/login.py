@@ -88,7 +88,15 @@ def unsubscribe():
 
     return jsonify({'result': "Success"})
 
+@bp.route('/subscriptions', methods=['GET'])
+def subscriptions():
 
+    if not current_user.is_authenticated:
+        return jsonify({'result': "Not logged in."})
+    
+    user_id = current_user.get_id()
+
+    subscriptions = SubscriberRelationship.query.filter_by(follower_id=user_id).all()
 
 
     

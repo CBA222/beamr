@@ -40,6 +40,13 @@ class SubscriberRelationship(db.Model):
     follower_id = db.Column(db.Integer)
     following_id = db.Column(db.Integer)
 
+class VideoComment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.ForeignKey('user_account.id'))
+    video_id = db.Column(db.ForeignKey('video.id'))
+    content = db.Column(db.String(1000))
+    post_time = db.Column(db.DateTime)
+
 @login_manager.user_loader
 def load_user(id):
     return UserAccount.query.get(int(id))

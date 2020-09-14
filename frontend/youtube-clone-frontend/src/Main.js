@@ -16,6 +16,7 @@ import Studio from "./studio/Studio";
 import AccountModal from "./base/AccountModal"
 import Results from "./Results";
 import SubscriptionsList from './base/SubscriptionsList'
+import SearchBar from './base/SearchBar'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -147,6 +148,10 @@ class Main extends Component {
     this.contentContainer.current.classList.toggle("collapsed");
   }
 
+  searchSubmit() {
+
+  }
+
   render() {
     const loggedIn = this.state.loggedIn;
   return (
@@ -179,15 +184,7 @@ class Main extends Component {
               </ul>
           </div>
           <div class="header-center">
-              <div class="searchbar-container">
-                  <div class="query-box">
-                      <input autocomplete="off" type="text" id="query" name="query" placeholder="Search" required/>
-                  </div>
-                  <div class="search-button-box">
-                      <button>
-                      </button>
-                  </div>
-              </div>
+              <SearchBar/>
           </div>
           
           {loggedIn  
@@ -233,7 +230,7 @@ class Main extends Component {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/watch" component={Watch}/>
-          <Route path="/search" component={SubscriptionsList}/>
+          <Route path="/search" component={Results}/>
           <Route path='/studio' component={Studio}/>
         </Switch>
       </div>

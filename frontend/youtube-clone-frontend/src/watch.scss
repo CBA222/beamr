@@ -169,6 +169,11 @@
         height: 3.3em;
         display: flex;
         flex-direction: grow;
+
+        form {
+            width: 100%;
+            display: flex;
+        }
     }
     
     .comment-input-container input {
@@ -211,6 +216,7 @@
     
     .comments-list {
         height: 500px;
+        padding-top: 1em;
     }
     
     
@@ -299,4 +305,34 @@
 }
 
 
+.video-comment {
+    display: flex;
+    width: 100%;
+    margin-top: 1em;
 
+    .comment-left {
+
+        img {
+            width: 2.9em;
+            height: 2.9em;
+        }
+    }
+
+    .comment-right {
+
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 0.6em;
+        
+        .comment-username {
+            width: 100%;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .comment-content {
+            margin-top: 0.2em;
+            width: 100%;
+        }
+    }
+}
